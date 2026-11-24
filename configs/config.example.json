@@ -1,0 +1,46 @@
+﻿{
+  "config_schema_version": 1,
+  "inputs": [
+    {
+      "id": "volume_x",
+      "path": "./data/Volume_X"
+    }
+  ],
+  "discovery": {
+    "recursive": true,
+    "include": ["*.json"],
+    "exclude": ["**/loader_output/**", "**/malware_loader_logs/**"],
+    "follow_links": false,
+    "identity": "auto"
+  },
+  "labels": {
+    "avclass": "./labels/avclass_report_to_label_mapping.json",
+    "cape": "./labels/cape_report_to_label_mapping.json",
+    "consensus": "./labels/reports_consensus_label.json",
+    "row_errors": "quarantine",
+    "require_full_coverage": false
+  },
+  "taxonomy": "./taxonomy.seed.json",
+  "analysis": {
+    "mode": "evidence",
+    "scope": "candidates",
+    "policy": "conservative-v1",
+    "trusted_rule_registry": null
+  },
+  "resources": {
+    "workers": 4,
+    "max_pending": 8,
+    "max_file_bytes": 268435456,
+    "max_call_record_bytes": 1048576,
+    "max_json_depth": 128,
+    "report_timeout_seconds": 300
+  },
+  "output": {
+    "root": "./runs",
+    "keep_fact_cache": true
+  },
+  "logging": {
+    "level": "INFO",
+    "progress_interval_seconds": 10
+  }
+}

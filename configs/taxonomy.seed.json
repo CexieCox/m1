@@ -1,0 +1,50 @@
+{
+  "version": "2026-10-21-plan-v1",
+  "purpose": "Metadata candidate discovery for payload-delivery families. This is not an exhaustive taxonomy or proof of executed loader behavior.",
+  "normalization": "strip and casefold, followed by explicit aliases only",
+  "families": [
+    {
+      "canonical": "smokeloader",
+      "aliases": ["smokeloader", "dofoil"],
+      "source_url": "https://www.microsoft.com/en-us/security/blog/2018/03/13/poisoned-peer-to-peer-app-kicked-off-dofoil-coin-miner-outbreak/"
+    },
+    {
+      "canonical": "guloader",
+      "aliases": ["guloader"],
+      "source_url": "https://www.crowdstrike.com/en-us/blog/guloader-malware-analysis/"
+    },
+    {
+      "canonical": "sload",
+      "aliases": ["sload"],
+      "source_url": "https://www.microsoft.com/en-us/security/blog/2019/12/12/multi-stage-downloader-trojan-sload-abuses-bits-almost-exclusively-for-malicious-activities/"
+    },
+    {
+      "canonical": "gcleaner",
+      "aliases": ["gcleaner"],
+      "source_url": "https://research.openanalysis.net/gcleaner/loader/debugging/encryption/opendir/2024/03/17/new-gcleaner.html"
+    },
+    {
+      "canonical": "upatre",
+      "aliases": ["upatre"],
+      "source_url": "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=TrojanDownloader%3AWin32%2FUpatre.A&ThreatID=2147682923"
+    },
+    {
+      "canonical": "modiloader",
+      "aliases": ["modiloader", "dbatloader"],
+      "source_url": "https://www.welivesecurity.com/en/eset-research/phishing-targeting-polish-smbs-continues-modiloader/"
+    },
+    {
+      "canonical": "privateloader",
+      "aliases": ["privateloader"],
+      "source_url": "https://www.sekoia.com/blog/privateloader-the-loader-of-the-prevalent-ruzki-ppi-service"
+    },
+    {
+      "canonical": "customerloader",
+      "aliases": ["customerloader"],
+      "source_url": "https://www.sekoia.com/blog/customerloader-a-new-malware-distributing-a-wide-variety-of-payloads"
+    }
+  ],
+  "missing_values": ["", "(n/a)"],
+  "review_examples_not_automatically_included": ["Amadey", "Qbot", "Qakbot", "Emotet", "Icedid", "Gamarue", "Androm", "Rozena", "Loader", "Donut", "Anchorloader", "Shortloader", "Offloader"],
+  "important": "Labels outside this seed remain unreviewed, not negative. No Smoke/NullMixer/Mokes/Minix aliases are inferred. Family roles and successful delivery require separate validation."
+}

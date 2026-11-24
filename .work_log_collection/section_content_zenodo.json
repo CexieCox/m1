@@ -1,0 +1,113 @@
+{
+  "title": "3.2.2. Module 1: Log Collection",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Module 1 constructs the malware-loader log collection used by TemporalKG from the publicly available WinMET dataset. The workflow uses the original sandbox reports as its data source and applies the project's LoaderFilter tool to select loader-related candidates from the broader malware corpus. The selected reports are then supplied to Module 2 for subsequent processing. LoaderFilter performs local filtering and preparation of existing reports; the sandbox traces originate from WinMET. [1]"
+    },
+    {
+      "type": "h",
+      "text": "a) Primary data source and collection scope"
+    },
+    {
+      "type": "p",
+      "text": "WinMET, short for Windows Malware Execution Traces, is published on Zenodo by Raducu et al. The referenced release is version v3, published on 25 July 2025, with DOI 10.5281/zenodo.16414116. It contains 31,844 CAPE-generated execution traces distributed across five archives. The JSON reports record process activity, WinAPI and system-call sequences, arguments, return values, and accessed operating-system resources. [1]"
+    },
+    {
+      "type": "p",
+      "text": "The collection scope of this study covers all five WinMET volumes. Their extracted JSON reports provide the local inputs to the filtering workflow. The published total describes the source dataset; the downstream collection consists of the reports retained by the project-specific candidate selection. The filtering task selects loader-related reports within a malware corpus, rather than establishing a malware-versus-benign classification."
+    },
+    {
+      "type": "h",
+      "text": "b) Label metadata and report matching"
+    },
+    {
+      "type": "p",
+      "text": "WinMET supplies three label files alongside the trace archives. The consensus file referenced in the source link contains label metadata rather than the execution logs themselves. Their roles are summarized below. [1]"
+    },
+    {
+      "type": "table",
+      "widths": [
+        5400,
+        3626
+      ],
+      "headers": [
+        "Metadata file",
+        "Contents"
+      ],
+      "rows": [
+        [
+          "cape_report_to_label_mapping.json",
+          "CAPE-assigned report labels."
+        ],
+        [
+          "avclass_report_to_label_mapping.json",
+          "AVClass-assigned report labels."
+        ],
+        [
+          "reports_consensus_label.json",
+          "Both label assignments for each trace."
+        ]
+      ]
+    },
+    {
+      "type": "p",
+      "text": "LoaderFilter associates these metadata records with local reports using sample hashes obtained from valid report filenames and/or target metadata. It preserves separate identifiers for a source location, report content, and malware sample. The report identifier is calculated from the report's SHA-256 digest, whereas the sample hash identifies the analyzed binary. When the filename and target hashes disagree, the tool records an identity conflict rather than silently treating them as the same sample."
+    },
+    {
+      "type": "p",
+      "text": "CAPE and AVClass labels are retained separately and compared with the consensus metadata. A consensus entry can supplement a missing label mapping. If it disagrees with an existing mapping, the discrepancy and its source remain recorded. The consensus metadata therefore preserves the available label assignments without requiring the two labeling sources to agree on every report."
+    },
+    {
+      "type": "h",
+      "text": "c) Filtering the malware corpus for loader candidates"
+    },
+    {
+      "type": "p",
+      "text": "The local tool discovers JSON reports from the configured input directories and builds an inventory linked to the label metadata. Its bundled seed taxonomy contains eight canonical families: smokeloader, guloader, sload, gcleaner, upatre, modiloader, privateloader, and customerloader. Labels are normalized by removing surrounding whitespace and applying case folding, followed by explicit aliases defined in the taxonomy. This provides a consistent comparison between the metadata labels and the configured family names."
+    },
+    {
+      "type": "p",
+      "text": "A report enters the initial candidate set when at least one relevant label matches a family in the predefined loader family list. The broader candidate set also retains reports with configured generic labels, labels requiring review, or conflicts between the label mappings and consensus metadata. Label agreement, disagreement, and missing values are recorded separately. These inclusion criteria preserve uncertain reports for subsequent analysis; candidate status alone does not establish that loader activity occurred during execution."
+    },
+    {
+      "type": "p",
+      "text": "The filtering workflow also supports behavioral screening of CAPE reports. This step incrementally examines process records, selected API-call evidence, malware detections, and metadata describing extracted or dropped artifacts. Loader-family detections or delivery-related behavior can provide additional reasons to retain a report. Behavioral screening can cover the initial candidate set or the entire discovered collection, depending on the configured scope. The selection criterion for reports passed to the next module is described below."
+    },
+    {
+      "type": "h",
+      "text": "d) Selection rule and downstream report collection"
+    },
+    {
+      "type": "p",
+      "text": "The collection passed to Module 2 includes all reports designated as candidates by the filtering workflow. This includes reports with loader-family label matches and those retained for the additional review reasons described above. Confirmed runtime loader execution is not a prerequisite for inclusion. The resulting collection is therefore a loader-related candidate subset of WinMET, preserving the distinction between family-label evidence, a reason for further inspection, and supported evidence of runtime loader execution."
+    },
+    {
+      "type": "p",
+      "text": "The selected original JSON reports are copied for downstream processing, and their SHA-256 digests are verified to check content integrity. Export records retain report and sample identifiers, source information, the recorded decision, and the selection criterion. This preserves the original telemetry and its provenance for the next module. The evidence extracted during filtering serves as an intermediate representation; the complete source reports remain the downstream input."
+    },
+    {
+      "type": "p",
+      "text": "Report-level selection also does not imply that every process or API call in a retained report belongs exclusively to a loader. A selected sandbox report can retain other execution context. Likewise, exclusion from the seed taxonomy alone does not establish that a report is benign or definitively unrelated to loader activity. These distinctions define how the filtered collection should be interpreted in later analysis."
+    },
+    {
+      "type": "h",
+      "text": "e) Traceability and quality control"
+    },
+    {
+      "type": "p",
+      "text": "The workflow preserves report inventories, processing statuses, configuration snapshots, and processing history. When behavioral screening is enabled, it also records extracted evidence and quality indicators. Input checks examine report structure and resource limits, record malformed or unsupported reports, and detect changes to source files during reading. Collection-level quality checks examine identifiers, content fingerprints, evidence integrity, consistency between records, and the prerequisites for recorded decisions. These checks support traceability and data integrity; they do not by themselves establish the accuracy or completeness of loader identification."
+    },
+    {
+      "type": "p",
+      "text": "The output of Module 1 is therefore the selected collection of existing WinMET reports, together with records explaining its selection and provenance. Subsequent telemetry normalization and transition construction belong to Module 2."
+    }
+  ],
+  "sources": [
+    {
+      "id": "1",
+      "title": "Primary dataset",
+      "detail": "Raducu, R., Villagrasa-Labrador, A., Rodríguez, R. J., and Álvarez, P. (2025). WinMET Dataset (v3) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16414116. Record: https://zenodo.org/records/16414116."
+    }
+  ]
+}

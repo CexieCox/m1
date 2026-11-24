@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loaderfilter"
+version = "0.1.0"
+description = "Conservative CAPE report loader-candidate filter with label, evidence and event-attribution stages"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "LoaderFilter contributors" }]
+keywords = ["cape", "malware", "loader", "triage", "dfir"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+  "ijson>=3.2,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10",
+]
+
+[project.scripts]
+loaderfilter = "tools.cli:main"
+
+[project.urls]
+Homepage = "https://example.invalid/loaderfilter"
+
+[tool.setuptools]
+package-dir = { "" = "." }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["utils*", "Code*", "tools*"]
+
+[tool.setuptools.package-data]
+"*" = ["configs/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+cache_dir = "State/.pytest_cache"
+addopts = "-q"
+markers = [
+  "regression: dataset level regression tests (require local Volume 5 data)",
+  "slow: tests that take noticeable time",
+]

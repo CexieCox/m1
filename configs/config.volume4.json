@@ -1,0 +1,46 @@
+{
+  "config_schema_version": 1,
+  "inputs": [
+    {
+      "id": "WinMET_volume_4",
+      "path": "D:\\dataset\\WinMET_volume_4"
+    }
+  ],
+  "discovery": {
+    "recursive": true,
+    "include": ["*.json"],
+    "exclude": ["**/loader_output/**", "**/malware_loader_logs/**"],
+    "follow_links": false,
+    "identity": "auto"
+  },
+  "labels": {
+    "avclass": "D:\\dataset\\loader_plan\\avclass_report_to_label_mapping.json",
+    "cape": "D:\\dataset\\loader_plan\\cape_report_to_label_mapping.json",
+    "consensus": "D:\\dataset\\loader_plan\\reports_consensus_label.json",
+    "row_errors": "quarantine",
+    "require_full_coverage": false
+  },
+  "taxonomy": "D:\\dataset\\loader_plan\\tool_spec\\taxonomy.seed.json",
+  "analysis": {
+    "mode": "evidence",
+    "scope": "candidates",
+    "policy": "conservative-v1",
+    "trusted_rule_registry": null
+  },
+  "resources": {
+    "workers": 3,
+    "max_pending": 12,
+    "max_file_bytes": 1073741824,
+    "max_call_record_bytes": 1048576,
+    "max_json_depth": 128,
+    "report_timeout_seconds": 300
+  },
+  "output": {
+    "root": "D:\\dataset\\loaderfilter_tool\\runs",
+    "keep_fact_cache": true
+  },
+  "logging": {
+    "level": "INFO",
+    "progress_interval_seconds": 10
+  }
+}

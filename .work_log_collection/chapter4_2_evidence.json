@@ -1,0 +1,75 @@
+{
+  "target": "4.2. Module 1: Data Collection",
+  "language": "English",
+  "style": "Thesis prose; no function names or internal implementation identifiers",
+  "authoritative_thesis": {
+    "library_file_id": "libfile_4f1bef75712c81918890b009b5b4dae5",
+    "filename": "Capstone_Project_English_Verphuc.docx",
+    "section_4_2_page": 68,
+    "section_4_3_pages": [
+      69,
+      70
+    ]
+  },
+  "user_confirmed": {
+    "scope": "All five WinMET volumes",
+    "export_selection": "All candidates",
+    "source": "WinMET; local LoaderFilter filters existing logs"
+  },
+  "public_source": {
+    "url": "https://zenodo.org/records/16414116",
+    "total_traces": 31844,
+    "volume_counts": [
+      6369,
+      6369,
+      6369,
+      6369,
+      6368
+    ],
+    "warning": "Published source counts, not audited local run counts."
+  },
+  "downstream_counts_from_thesis": [
+    {
+      "partition": "Train/2021",
+      "input_files": 20,
+      "processed_files": 20
+    },
+    {
+      "partition": "Train/2024",
+      "input_files": 700,
+      "processed_files": 699
+    },
+    {
+      "partition": "Validate/2024",
+      "input_files": 18,
+      "processed_files": 18
+    },
+    {
+      "partition": "Validate/2026",
+      "input_files": 39,
+      "processed_files": 39
+    },
+    {
+      "partition": "Test/2024",
+      "input_files": 298,
+      "processed_files": 297
+    }
+  ],
+  "unresolved": [
+    "Location of actual Module 1 outputs: Results is empty; configured D:\\dataset paths absent.",
+    "Whether the 1,036 input files for 2021/2024 are all Module 1 exports or a further subset.",
+    "Actual filtering mode and candidate-reason/family counts, exclusions, runtime and QA outcomes require run artifacts."
+  ],
+  "proposed_structure": [
+    "4.2.1. Collection Scope and Source Coverage",
+    "4.2.2. Candidate Selection Results",
+    "4.2.3. Composition of the Collected Reports",
+    "4.2.4. Data Integrity and Transfer to Module 2"
+  ],
+  "avoid": [
+    "Do not report Module 2 runtimes or validator results as Module 1 measurements.",
+    "Do not call candidate labels verified loader execution.",
+    "Do not infer 1,036/31,844 retention rate without confirming the relationship.",
+    "Do not claim passing checks solely from code or a test cache."
+  ]
+}

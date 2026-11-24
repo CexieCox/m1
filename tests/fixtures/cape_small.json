@@ -1,0 +1,269 @@
+{
+  "info": {
+    "id": 42,
+    "machine": {"name": "vm", "label": "fixture"},
+    "started": "2024-01-01 00:00:00"
+  },
+  "target": {
+    "file": {
+      "name": "loader.exe",
+      "path": "C:\\Users\\user\\loader.exe",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "type": "PE32 executable (GUI) Intel 80386, for MS Windows",
+      "size": 12345,
+      "guest_paths": "1;?C:\\Users\\user\\loader.exe;?C:\\Temp\\l.exe",
+      "pe": {"imagebase": "0x400000", "entrypoint": "0x1000"},
+      "strings": ["This program cannot be run in DOS mode."],
+      "virustotal": {"detections": "12/70"}
+    }
+  },
+  "detections": [
+    {"family": "emotet", "details": [{"type": "family"}]}
+  ],
+  "behavior": {
+    "processes": [
+      {
+        "process_id": 1000,
+        "parent_id": 900,
+        "process_name": "loader.exe",
+        "module_path": "C:\\Users\\user\\loader.exe",
+        "command_line": "loader.exe /q",
+        "first_seen": "2024-01-01 00:00:00,000",
+        "calls": [
+          {
+            "timestamp": "2024-01-01 00:00:01,000",
+            "thread_id": "101",
+            "caller": "0x401000",
+            "parentcaller": "0x401500",
+            "category": "process",
+            "api": "NtOpenProcess",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessId", "value": "0x7d0", "pretty_value": "2000"},
+              {"name": "ProcessHandle", "value": "0x1a4", "pretty_value": "0x1a4"}
+            ],
+            "repeated": 0,
+            "id": 1
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,100",
+            "thread_id": "101",
+            "caller": "0x401020",
+            "parentcaller": "0x401500",
+            "category": "process",
+            "api": "NtWriteVirtualMemory",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessHandle", "value": "0x1a4", "pretty_value": "0x1a4"},
+              {"name": "BaseAddress", "value": "0x400000", "pretty_value": "0x400000"},
+              {"name": "BufferLength", "value": "0x1000", "pretty_value": "4096"}
+            ],
+            "repeated": 0,
+            "id": 2
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,200",
+            "thread_id": "101",
+            "caller": "0x401040",
+            "parentcaller": "0x401500",
+            "category": "threading",
+            "api": "NtCreateThreadEx",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessHandle", "value": "0x1a4", "pretty_value": "0x1a4"},
+              {"name": "StartAddress", "value": "0x400010", "pretty_value": "0x400010"}
+            ],
+            "repeated": 0,
+            "id": 3
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,300",
+            "thread_id": "101",
+            "caller": "0x401060",
+            "parentcaller": "0x401500",
+            "category": "handle",
+            "api": "NtClose",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "Handle", "value": "0x1a4", "pretty_value": "0x1a4"}
+            ],
+            "repeated": 0,
+            "id": 4
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,400",
+            "thread_id": "101",
+            "caller": "0x401080",
+            "parentcaller": "0x401500",
+            "category": "process",
+            "api": "NtWriteVirtualMemory",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessHandle", "value": "0x1a4", "pretty_value": "0x1a4"},
+              {"name": "BaseAddress", "value": "0x401000", "pretty_value": "0x401000"}
+            ],
+            "repeated": 0,
+            "id": 5
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,500",
+            "thread_id": "101",
+            "caller": "0x4010a0",
+            "parentcaller": "0x401500",
+            "category": "process",
+            "api": "NtCreateUserProcess",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessId", "value": "0xbb8", "pretty_value": "3000"},
+              {"name": "ImagePath", "value": "C:\\Temp\\next.exe", "pretty_value": "C:\\Temp\\next.exe"}
+            ],
+            "repeated": 0,
+            "id": 6
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,600",
+            "thread_id": "101",
+            "caller": "0x4010c0",
+            "parentcaller": "0x401500",
+            "category": "filesystem",
+            "api": "NtCreateFile",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "FileName", "value": "C:\\Temp\\dropped.bin", "pretty_value": "C:\\Temp\\dropped.bin"},
+              {"name": "CreateDisposition", "value": "0x5", "pretty_value": "FILE_OVERWRITE_IF"},
+              {"name": "FileHandle", "value": "0x2b0", "pretty_value": "0x2b0"}
+            ],
+            "repeated": 0,
+            "id": 7
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,700",
+            "thread_id": "101",
+            "caller": "0x4010e0",
+            "parentcaller": "0x401500",
+            "category": "network",
+            "api": "URLDownloadToFileW",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "szUrl", "value": "http://example.invalid/a.bin", "pretty_value": "http://example.invalid/a.bin"},
+              {"name": "szFileName", "value": "C:\\Temp\\a.bin", "pretty_value": "C:\\Temp\\a.bin"}
+            ],
+            "repeated": 0,
+            "id": 8
+          },
+          {
+            "timestamp": "2024-01-01 00:00:01,800",
+            "thread_id": "101",
+            "caller": "0x401100",
+            "parentcaller": "0x401500",
+            "category": "process",
+            "api": "NtWriteVirtualMemory",
+            "status": true,
+            "return": "0x00000000",
+            "arguments": [
+              {"name": "ProcessHandle", "value": "0xffffffffffffffff", "pretty_value": "0xffffffffffffffff"},
+              {"name": "BaseAddress", "value": "0x500000", "pretty_value": "0x500000"}
+            ],
+            "repeated": 0,
+            "id": 9
+          }
+        ]
+      },
+      {
+        "process_id": 2000,
+        "parent_id": 1000,
+        "process_name": "notepad.exe",
+        "module_path": "C:\\Windows\\System32\\notepad.exe",
+        "command_line": "notepad.exe",
+        "first_seen": "2024-01-01 00:00:01,050",
+        "calls": []
+      }
+    ],
+    "enhanced": [
+      {"event": "created_process", "object": "notepad.exe"},
+      {"event": "load_image", "object": "C:\\Windows\\System32\\kernel32.dll"}
+    ],
+    "processtree": [
+      {
+        "name": "loader.exe",
+        "pid": 1000,
+        "parent_id": 900,
+        "module_path": "C:\\Users\\user\\loader.exe",
+        "children": [
+          {
+            "name": "notepad.exe",
+            "pid": 2000,
+            "parent_id": 1000,
+            "module_path": "C:\\Windows\\System32\\notepad.exe",
+            "children": [],
+            "threads": ["101"]
+          }
+        ],
+        "threads": ["101", "102"]
+      }
+    ]
+  },
+  "CAPE": {
+    "payloads": [
+      {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "name": "payload1.bin",
+        "size": 100,
+        "type": "PE32 executable",
+        "guest_paths": "1;?C:\\Temp\\payload1.bin",
+        "pid": 1000,
+        "process_name": "loader.exe",
+        "cape_type": "CAPE",
+        "yara": [{"name": "cape_yara_loader"}],
+        "cape_yara": ["cape_yara_loader"],
+        "data": "TVqQAAMAAAAEAAAA",
+        "strings": ["hidden"]
+      },
+      {
+        "sha256": "deadbeef",
+        "name": "bad.bin",
+        "size": 1,
+        "type": "data",
+        "yara": [],
+        "cape_yara": [],
+        "data": "",
+        "strings": []
+      }
+    ]
+  },
+  "procdump": [
+    {
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "name": "process.dmp",
+      "size": 4096,
+      "type": "PE32",
+      "pe": {"imagebase": "0x400000"},
+      "dotnet": {"version": "v4.0.30319"},
+      "data": "AAAA",
+      "strings": ["MZ"]
+    }
+  ],
+  "dropped": {
+    "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd": {
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "name": "drop1.bin",
+      "size": 5,
+      "type": "PE32",
+      "guest_paths": "?C:\\Temp\\drop1.bin",
+      "data": "AAAA",
+      "strings": ["x"]
+    }
+  },
+  "signatures": [
+    {"name": "antivm", "severity": 2, "description": "virtual machine detected", "data": ["vmware"]}
+  ],
+  "avclass_detection": "emotet"
+}

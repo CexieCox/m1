@@ -1,0 +1,240 @@
+{
+  "title": "4.2. Module 1: Data Collection",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Module 1 assembled the execution-log collection used by TemporalKG by filtering existing CAPE sandbox reports from WinMET. This section presents the collection results for Volumes 3 and 4, including the number of retained candidates and the distribution of loader-family labels. It also summarizes the 1,036 log files used in the project's downstream experiments. Candidate selection and family-label agreement are evaluated separately because they describe different properties of the collected reports."
+    },
+    {
+      "type": "h",
+      "text": "4.2.1. Collection Scope and Filtering Yield"
+    },
+    {
+      "type": "p",
+      "text": "The study's collection scope covers all five WinMET volumes. The published dataset contains 31,844 execution traces in JSON format, with process activity, API and system-call sequences, arguments, return values, and accessed operating-system resources [1]. The quantitative filtering results reported here cover Volumes 3 and 4, comprising 6,369 input reports each and 12,738 reports in total. These two-volume results are not presented as aggregate filtering results for the complete five-volume dataset."
+    },
+    {
+      "type": "caption",
+      "text": "Table 4.2a. Input reports and retained loader candidates"
+    },
+    {
+      "type": "table",
+      "widths": [
+        3900,
+        1600,
+        1600,
+        1926
+      ],
+      "headers": [
+        "Measure",
+        "Volume 3",
+        "Volume 4",
+        "Combined"
+      ],
+      "rows": [
+        [
+          "Input reports",
+          "6,369",
+          "6,369",
+          "12,738"
+        ],
+        [
+          "Loader candidates retained",
+          "694",
+          "696",
+          "1,390"
+        ],
+        [
+          "Candidate retention rate",
+          "10.90%",
+          "10.93%",
+          "10.91%"
+        ]
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Source: Module 1 collection results for Volumes 3 and 4. Retention rate = retained candidates / input reports × 100; percentages are rounded to two decimal places."
+    },
+    {
+      "type": "p",
+      "text": "The filter retained 694 candidates from Volume 3 and 696 from Volume 4. Together, the two volumes yielded 1,390 candidate reports for downstream processing, corresponding to 10.91% of their combined inputs. The retained counts differ by only two reports, and the retention rates are close across the two volumes. This similarity describes the observed selection yield; it does not establish that the volumes have identical behavioral characteristics."
+    },
+    {
+      "type": "p",
+      "text": "The export criterion includes all reports designated as candidates. As described in Section 3.2.2, candidate status can reflect a loader-family label match or another configured reason for further review. The retention rate therefore measures the proportion of input reports selected for subsequent analysis, rather than the proportion with independently verified loader execution."
+    },
+    {
+      "type": "h",
+      "text": "4.2.2. Loader-Family Labels and Agreement"
+    },
+    {
+      "type": "p",
+      "text": "The family-level results distinguish two label conditions. An either-label match means that at least one of the CAPE or AVClass labels matches the specified family. Agreement means that both labeling sources match that family. The agreement count is contained within the corresponding either-label count and is not added to it."
+    },
+    {
+      "type": "caption",
+      "text": "Table 4.2b. Loader-family label matches in Volumes 3 and 4"
+    },
+    {
+      "type": "table",
+      "widths": [
+        2700,
+        2100,
+        2100,
+        2126
+      ],
+      "headers": [
+        "Loader family",
+        "Volume 3\nEither / both",
+        "Volume 4\nEither / both",
+        "Combined\neither-label"
+      ],
+      "rows": [
+        [
+          "Smokeloader",
+          "90 / 34",
+          "93 / 36",
+          "183"
+        ],
+        [
+          "GCleaner",
+          "55 / 45",
+          "52 / 44",
+          "107"
+        ],
+        [
+          "Sload",
+          "32 / 13",
+          "45 / 27",
+          "77"
+        ],
+        [
+          "Upatre",
+          "32 / 22",
+          "18 / 8",
+          "50"
+        ],
+        [
+          "GuLoader",
+          "22 / 13",
+          "21 / 16",
+          "43"
+        ],
+        [
+          "ModiLoader",
+          "9 / 3",
+          "14 / 5",
+          "23"
+        ],
+        [
+          "PrivateLoader",
+          "0 / 0",
+          "1 / 1",
+          "1"
+        ],
+        [
+          "Sum of family-level counts",
+          "240 / 130",
+          "244 / 137",
+          "484"
+        ]
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Source: Module 1 family-label results. Either = at least one labeling source matches the family; both = CAPE and AVClass agree on that family. Agreement totals of 130 and 137 are calculated from the listed rows."
+    },
+    {
+      "type": "p",
+      "text": "Smokeloader accounts for the largest either-label count, with 183 matches across the two volumes, followed by GCleaner with 107 and Sload with 77. PrivateLoader appears once in Volume 4, where both labeling sources agree. The remaining reported families are Upatre, GuLoader, and ModiLoader. These counts describe the family labels represented in the two-volume results and do not measure the relative prevalence of these families outside the evaluated collection."
+    },
+    {
+      "type": "p",
+      "text": "Summing the rows gives 240 either-label matches in Volume 3 and 244 in Volume 4, for 484 family-level matches overall. The corresponding agreement counts are 130 and 137, totaling 267. The difference between these counting conditions shows that a requirement for agreement would retain fewer family-label matches than the either-label criterion. Agreement itself remains a property of the metadata and does not establish the accuracy of a family assignment or confirm runtime loader behavior."
+    },
+    {
+      "type": "p",
+      "text": "The total of 484 is a sum of family-level counts, rather than an established count of distinct reports across all families. A report can contribute to different family rows when its two labels disagree. Consequently, this total should not be subtracted from the 1,390 candidates to infer the number retained for other reasons. The candidate pool and the family-label table describe different aspects of the filtering output."
+    },
+    {
+      "type": "h",
+      "text": "4.2.3. Log Corpus Used in the Experiments"
+    },
+    {
+      "type": "p",
+      "text": "The project uses 1,036 log files from the 2021 and 2024 partitions as input to the downstream experiments. Table 4.2c presents their allocation, consistent with the input-file counts reported in Section 4.3. The table counts input reports; it does not count normalized events, reconstructed episodes, or successfully processed reports."
+    },
+    {
+      "type": "caption",
+      "text": "Table 4.2c. Log files used in the project's 2021 and 2024 partitions"
+    },
+    {
+      "type": "table",
+      "widths": [
+        4000,
+        2300,
+        2726
+      ],
+      "headers": [
+        "Experimental partition",
+        "Year",
+        "Input log files"
+      ],
+      "rows": [
+        [
+          "Training",
+          "2021",
+          "20"
+        ],
+        [
+          "Training",
+          "2024",
+          "700"
+        ],
+        [
+          "Validation",
+          "2024",
+          "18"
+        ],
+        [
+          "Testing",
+          "2024",
+          "298"
+        ],
+        [
+          "Total",
+          "2021 and 2024",
+          "1,036"
+        ]
+      ]
+    },
+    {
+      "type": "note",
+      "text": "Source: Project-confirmed experimental corpus and the input-file counts in Section 4.3."
+    },
+    {
+      "type": "p",
+      "text": "The allocation comprises 720 training reports, 18 validation reports, and 298 testing reports. By year, 20 reports belong to the 2021 partition and 1,016 to the 2024 partitions. These are file counts at the input boundary. Differences between input-file counts, successful processing counts, and episode counts are addressed in the evaluation of Module 2. In particular, the 298 testing input files must not be described as 298 successfully processed reports."
+    },
+    {
+      "type": "h",
+      "text": "4.2.4. Interpretation of the Collection Results"
+    },
+    {
+      "type": "p",
+      "text": "The two-volume results demonstrate a reduction from 12,738 source reports to 1,390 loader-related candidates while retaining reports that merit further analysis under the selection criteria. The family-label results provide additional context for this collection by showing which reported families are represented and where the two labeling sources agree. These observations support an assessment of collection yield and label composition, rather than a measurement of detection precision or recall."
+    },
+    {
+      "type": "p",
+      "text": "The original JSON reports provide the telemetry for subsequent event normalization and transition construction. Module 2 evaluates those processing stages separately. This separation keeps report selection, family-label interpretation, and downstream behavioral reconstruction distinct when assessing the experimental results."
+    }
+  ],
+  "sources": [
+    {
+      "id": "1",
+      "title": "WinMET Dataset",
+      "detail": "R. Raducu, A. Villagrasa-Labrador, R. J. Rodríguez, and P. Álvarez, WinMET Dataset, version v3, Zenodo, 2025. https://doi.org/10.5281/zenodo.16414116."
+    }
+  ]
+}
